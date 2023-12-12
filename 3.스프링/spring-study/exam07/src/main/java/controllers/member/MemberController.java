@@ -19,5 +19,15 @@ public class MemberController {
         return "member/join";
     }
 
+    @GetMapping("/member/login")
+    public String login() {
 
+        return "member/login";
+    }
+
+    @PostMapping("/member/login")
+    public String loginPs(RequsetLogin form) {
+        System.out.println(form);
+        return "member/login";
+    }
 }
