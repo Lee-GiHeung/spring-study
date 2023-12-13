@@ -6,7 +6,9 @@ import java.util.TreeSet;
 
 public class Ex01 {
     public static void main(String[] args) {
-        Set<String> names = new TreeSet<>();
+        Set<String> names = new HashSet<>();
+        // Set<String> names = new TreeSet<>();
+
         names.add("이름5");
         names.add("이름2");
         names.add("이름4");
