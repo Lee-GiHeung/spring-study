@@ -33,5 +33,9 @@
                 </tr>
             </tbody>
         </table>
+
+        <th:block th:each="num : ${#numbers.sequence(1,10)}">
+            <h1 th:text="${num}"></h1>
+        </th:block>
     </body>
 </html>
