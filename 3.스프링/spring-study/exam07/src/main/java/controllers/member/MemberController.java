@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -18,13 +20,13 @@ public class MemberController {
                 .userNo(1L)
                 .userId("user01")
                 .userPw("1234")
-                .userNm("사용자01")
+                .userNm("<h1>사용자01</h1>")
                 .email("user01@test.org")
                 .regDt(LocalDateTime.now())
                 .build();
 
         model.addAttribute("member", member);
-
+        model.addAttribute("pageTitle","회원가입");
         return "member/join";
     }
 
@@ -44,5 +46,25 @@ public class MemberController {
     public String loginPs(RequsetLogin form) {
         System.out.println(form);
         return "member/login";
+    }
+
+    @GetMapping("/member/list")
+    public String members(Model model) {
+
+        List<Member> members = new ArrayList<>();
+        for(int i=1; i<=10 ; i++) {
+            Member member = Member.builder()
+                    .userNo(Long.valueOf(i))
+                    .userPw("1234")
+                    .userId("user" + i)
+                    .userNm("사용자01" + i)
+                    .email("user" + "@test.org")
+                    .regDt(LocalDateTime.now())
+                    .build();
+            members.add(member);
+        }
+        model.addAttribute("members", members);
+
+        return "member/list";
     }
 }
