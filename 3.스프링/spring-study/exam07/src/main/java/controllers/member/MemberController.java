@@ -1,6 +1,9 @@
 package controllers.member;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import models.member.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,7 +16,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/member")
+@RequiredArgsConstructor
 public class MemberController {
+
+    private final JoinValidator joinValidator;
 
     @ModelAttribute("hobbies")
     public List<String> hobbies() {
@@ -30,11 +36,16 @@ public class MemberController {
     }
 
     @PostMapping("/join") // member/join
-    public String joinPs(RequestJoin form, Model model) {
-        // System.out.println(form);
+    public String joinPs(@Valid RequestJoin form, Errors errors, Model model) {
+
+        joinValidator.validate(form, errors);
+
+        if(errors.hasErrors()) { // 검증 실패시
+            return "member/join";
+        }
+
         // 커맨드객체 RequestJoin -> requestJoin 이름으로 속성 추가
         //                  -> 템플릿내에서 바로 접근 가능
-        
         // response.sendRedirect(request,getContextPath() + "/member/login")
         // Location: 주소
         return "redirect:/member/login";
