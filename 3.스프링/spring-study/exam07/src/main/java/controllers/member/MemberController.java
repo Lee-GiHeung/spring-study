@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +16,9 @@ import java.util.List;
 @Controller
 public class MemberController {
 
-    @GetMapping("/member/join")
+    //@GetMapping("/member/join")
+    @RequestMapping(method={RequestMethod.GET, RequestMethod.POST},
+    path="/member/join")
     public String join(Model model) {
 
         String[] addCss = {"member/style1", "member/style2"};
@@ -27,11 +31,13 @@ public class MemberController {
         return "member/join";
     }
 
+    /*
     @PostMapping("/member/join")
     public String joinPs(RequestJoin form) {
         System.out.println(form);
         return "member/join";
     }
+    */
 
     @GetMapping("/member/login")
     public String login() {
