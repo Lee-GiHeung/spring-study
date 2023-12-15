@@ -14,11 +14,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
-    //@GetMapping("/member/join")
-    @RequestMapping(method={RequestMethod.GET, RequestMethod.POST},
-    path="/member/join")
+    //@RequestMapping(method={RequestMethod.GET, RequestMethod.POST},
+    //path="/member/join")
+    @GetMapping("/join") // member/join
     public String join(Model model) {
 
         String[] addCss = {"member/style1", "member/style2"};
@@ -31,27 +32,27 @@ public class MemberController {
         return "member/join";
     }
 
-    /*
-    @PostMapping("/member/join")
+
+    @PostMapping("/join") // member/join
     public String joinPs(RequestJoin form) {
         System.out.println(form);
         return "member/join";
     }
-    */
 
-    @GetMapping("/member/login")
+
+    @GetMapping("/login") // /member/login
     public String login() {
 
         return "member/login";
     }
 
-    @PostMapping("/member/login")
+    @PostMapping("/login") // /member/login
     public String loginPs(RequsetLogin form) {
         System.out.println(form);
         return "member/login";
     }
 
-    @GetMapping("/member/list")
+    @GetMapping("/list") // /member/list
     public String members(Model model) {
 
         List<Member> members = new ArrayList<>();
