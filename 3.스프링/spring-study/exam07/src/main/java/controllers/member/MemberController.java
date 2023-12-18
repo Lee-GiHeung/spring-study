@@ -46,7 +46,7 @@ public class MemberController {
         if(errors.hasErrors()) { // 검증 실패시
             return "member/join";
         }
-        
+
         // 회원 가입 처리
         joinService.join(form);
 
