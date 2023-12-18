@@ -3,6 +3,9 @@ package tests;
 import configs.ControllerConfig;
 import configs.DbConfig;
 import configs.MvcConfig;
+import controllers.member.RequestJoin;
+import models.member.JoinService;
+import models.member.Member;
 import models.member.MemberDao;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Connection;
 
@@ -20,16 +24,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // @SpringJUnitWebConfig
 // @WebAppConfiguration
+@Transactional
 @SpringJUnitConfig
 @ContextConfiguration(classes = {DbConfig.class, ControllerConfig.class})
 public class JoinServiceTest {
 
     @Autowired
     private DataSource dataSource;
-                    
+
     @Autowired
     private MemberDao memberDao;
-                
+
+    @Autowired
+    private JoinService service;
+
     @Test
     @DisplayName("데이터베이스 연결 테스트")
     void connectionTest() {
@@ -47,6 +55,21 @@ public class JoinServiceTest {
         boolean result = memberDao.exist(userId);
 
         assertTrue(result);
+    }
+    
+    @Test
+    @DisplayName("JoinService - join메서드 테스트")
+    void joinTest() {
+        RequestJoin form = new RequestJoin();
+        form.setUserId("user01");
+        form.setUserPw("12345678");
+        form.setUserNm("사용자01");
+        form.setEmail("user01@test.org");
 
+        service.join(form);
+
+        Member member = memberDao.get(form.getUserId());
+
+        System.out.println(member);
     }
 }
