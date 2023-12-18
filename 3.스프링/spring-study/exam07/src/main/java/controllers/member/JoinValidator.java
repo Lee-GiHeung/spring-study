@@ -1,5 +1,7 @@
 package controllers.member;
 
+import lombok.RequiredArgsConstructor;
+import models.member.MemberDao;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -7,7 +9,11 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
+@RequiredArgsConstructor
 public class JoinValidator implements Validator {
+
+    private final MemberDao memberDao;
+
     @Override
     public boolean supports(Class<?> clazz) { // 검증 커맨드 객체를 제한
 
@@ -31,6 +37,13 @@ public class JoinValidator implements Validator {
          */
 
         RequestJoin form = (RequestJoin)target;
+        // 중복 아이디 체크 여부
+        String userId = form.getUserId();
+        if(StringUtils.hasText(userId) && memberDao.exist(userId)) { // 이미 가입된 아이디
+            errors.rejectValue("userId", "Duplicated");
+
+        }
+
         String userPw = form.getUserPw();
         String confirmPw = form.getConfirmPw();
 
