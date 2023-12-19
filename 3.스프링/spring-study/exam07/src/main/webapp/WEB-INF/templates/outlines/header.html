@@ -4,7 +4,7 @@
         <th:block th:if="${@utils.isLogin()}">
             <span th:text="${#messages.msg('LOGIN_MSG', session.member.userNm,
             session.member.userId)}"></span>
-            <a th:href="@{/myPage}" th:text="#{마이페이지}"></a>
+            <a th:href="@{/mypage}" th:text="#{마이페이지}"></a>
             <a th:href="@{/member/logout}" th:text="#{로그아웃}"></a>
         </th:block>
         <th:block th:unless="${@utils.isLogin()}">
