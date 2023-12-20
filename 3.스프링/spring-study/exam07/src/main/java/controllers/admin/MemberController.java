@@ -26,6 +26,8 @@ public class MemberController {
         List<Member> members = memberDao.getList(search);
         model.addAttribute("members", members);
 
+        members.forEach(System.out::println);
+
         return "admin/member/list";
     }
 
