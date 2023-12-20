@@ -65,6 +65,9 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
        registry.addResourceHandler("/**") // 모든경로
                .addResourceLocations("classpath:/static/");
+
+       registry.addResourceHandler("/upload/**")
+               .addResourceLocations("file:///c:/uploads/");
     }
 
     @Override
