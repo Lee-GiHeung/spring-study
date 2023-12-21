@@ -41,7 +41,13 @@ public class JdbcEx01 {
     
     @Test
     void Test4() {
-        List<Member> members = repository.findByUserNmContaining("용");
+        List<Member> members = repository.findByUserNmContainingOrUserIdContainingOrderByRegDtDesc("용", "Id");
+        members.forEach(System.out::println);
+    }
+
+    @Test
+    void test5() {
+        List<Member> members = repository.getMembers("용", "Id");
         members.forEach(System.out::println);
     }
 }
