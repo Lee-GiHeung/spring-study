@@ -12,7 +12,7 @@ public class Ex04 {
             while(fis.available() > 0) {
                 int ch = fis.read(buffer); // ch - 현재 읽어온 바이트 갯수
                 // System.out.println(ch);
-                for(int i = 0 ; i < ch; i++) {
+                for (int i = 0 ; i < ch; i++) {
                     System.out.print((char)buffer[i]);
                 }
                 System.out.println();
