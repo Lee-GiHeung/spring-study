@@ -39,8 +39,8 @@ public class Member extends Base {
     @OneToMany(mappedBy= "member", fetch = FetchType.EAGER)
     private List<BoardData> items = new ArrayList<>();
 
+
     @OneToOne
     @JoinColumn(name="addressNo")
     private Address address;
-
 }
