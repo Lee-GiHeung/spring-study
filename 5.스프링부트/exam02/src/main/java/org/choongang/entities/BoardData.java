@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,7 +22,10 @@ public class BoardData extends Base {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userNo")
     private Member member;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<HashTag> tags = new ArrayList<>();
 }
