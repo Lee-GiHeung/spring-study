@@ -20,6 +20,7 @@ public class BoardData extends Base {
     @Column(nullable = false)
     private String content;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    @ManyToOne
+    @JoinColumn(name="userNo")
+    private Member member;
 }
