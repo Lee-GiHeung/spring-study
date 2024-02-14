@@ -1,21 +1,40 @@
 package tests;
 
+import jakarta.servlet.http.HttpServletRequest;
 import member.controllers.JoinValidator;
 import member.controllers.Member;
 import member.service.BadRequestException;
 import member.service.JoinService;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @DisplayName("회원가입 기능 테스트")
 public class JoinServiceTest {
+@ExtendWith(MockitoExtension.class)
 
     private JoinService joinService;
 
+    @Mock
+    private HttpServletRequest request;
+
     @BeforeEach
     void init() {
+
         joinService = new JoinService(new JoinValidator());
+
+        Member member = getMember();
+
+        //request = mock(HttpServletRequest.class);
+        given(request.getParameter("userId")).willReturn(member.getUserId());
+        given(request.getParameter("userPw")).willReturn(member.getUserPw());
+        given(request.getParameter("confirmPw")).willReturn(member.getConfirmPw());
+        given(request.getParameter("userNm")).willReturn(member.getUserNm());
     }
 
     private Member getMember() {
@@ -32,6 +51,14 @@ public class JoinServiceTest {
     void joinSuccess() {
         assertDoesNotThrow(() -> {
             joinService.join(getMember());
+        });
+    }
+
+    @Test
+    @DisplayName("회원가입 성공 테스트 - 요청 데이터")
+    void joinSuccessWithRequest() {
+        assertDoesNotThrow(() -> {
+            joinService.join(request);
         });
     }
 
